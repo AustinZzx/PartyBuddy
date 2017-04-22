@@ -32,8 +32,7 @@ public class User {
 		this.age = age;
 	}
 	
-<<<<<<< HEAD
-=======
+
 	public void applyParty(String id, Party party) {
 		applyparties.put(id, party);
 		//needs more
@@ -54,7 +53,7 @@ public class User {
 	}
 	
 	
->>>>>>> a084deeb05652df2c59716bf29b7497777fd558f
+
 	public int getAge() {
 		return age;
 	}
@@ -80,8 +79,7 @@ public class User {
 		return image;
 	}
 	
-<<<<<<< HEAD
-=======
+
 	public HashMap<String, Party> getApplyparties() {
 		return applyparties;
 	}
@@ -90,7 +88,7 @@ public class User {
 		return acceptedparties;
 	}
 	
->>>>>>> a084deeb05652df2c59716bf29b7497777fd558f
+
 	public void setAge(int age) {
 		this.age=age;
 	}
