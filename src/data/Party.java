@@ -23,6 +23,11 @@ public class Party {
 		this.host = host;
 	}
 	
+	public String getId()
+	{
+		return id;
+	}
+	
 	public String getName()
 	{
 		return name;

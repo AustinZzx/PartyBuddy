@@ -1,7 +1,5 @@
 package data;
 
-import java.util.Vector;
-
 public class User {
 	private int age;
 	private String fname;
@@ -11,10 +9,6 @@ public class User {
 	private String type;
 	private String description;
 	private String image;
-	private Vector<Party> applyparties;
-	private Vector<Party> acceptedparties;
-	private Vector<Party> hostparties;
-	private Vector<Party> joinparties;
 	
 	public User(int age, String fname, String lname, String username, String gender,
 			String type, String description, String image)
@@ -29,26 +23,6 @@ public class User {
 		this.image = image;
 		this.age = age;
 	}
-	
-	public void applyParty(Party party) {
-		applyparties.add(party);
-		//needs more
-	}
-	
-	public void getAccepted(Party party) {
-		acceptedparties.add(party);
-	}
-	
-	public void hostParty(Party party)
-	{
-		hostparties.add(party);
-	}
-	
-	public void joinParty(Party party)
-	{
-		joinparties.add(party);
-	}
-	
 	
 	public int getAge() {
 		return age;
@@ -73,14 +47,6 @@ public class User {
 	}
 	public String getImage() {
 		return image;
-	}
-	
-	public Vector<Party> getApplyparties() {
-		return applyparties;
-	}
-	
-	public Vector<Party> getAcceptedparties() {
-		return acceptedparties;
 	}
 	
 	public void setAge(int age) {
