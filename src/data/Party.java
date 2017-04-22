@@ -1,9 +1,11 @@
 package data;
 
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.Vector;
 
 public class Party {
+	private String id;
 	private String name;
 	private String location;
 	private int longitude;
@@ -13,6 +15,7 @@ public class Party {
 	
 	public Party(String name, String location,int longitude,int latitude, User host)
 	{
+		id = UUID.randomUUID().toString();
 		this.name = name;
 		this.location = location;
 		this.longitude = longitude;
