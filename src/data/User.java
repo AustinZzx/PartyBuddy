@@ -1,6 +1,6 @@
 package data;
 
-import java.util.Vector;
+import java.util.HashMap;
 
 public class User {
 	private int age;
@@ -11,10 +11,10 @@ public class User {
 	private String type;
 	private String description;
 	private String image;
-	private Vector<Party> applyparties;
-	private Vector<Party> acceptedparties;
-	private Vector<Party> hostparties;
-	private Vector<Party> joinparties;
+	private HashMap<String, Party> applyparties;
+	private HashMap<String, Party> acceptedparties;
+	private HashMap<String, Party> hostparties;
+	private HashMap<String, Party> joinparties;
 	
 	public User(int age, String fname, String lname, String username, String gender,
 			String type, String description, String image)
@@ -30,23 +30,23 @@ public class User {
 		this.age = age;
 	}
 	
-	public void applyParty(Party party) {
-		applyparties.add(party);
+	public void applyParty(String id, Party party) {
+		applyparties.put(id, party);
 		//needs more
 	}
 	
-	public void getAccepted(Party party) {
-		acceptedparties.add(party);
+	public void getAccepted(String id, Party party) {
+		acceptedparties.put(id, party);
 	}
 	
-	public void hostParty(Party party)
+	public void hostParty(String id, Party party)
 	{
-		hostparties.add(party);
+		hostparties.put(id, party);
 	}
 	
-	public void joinParty(Party party)
+	public void joinParty(String id, Party party)
 	{
-		joinparties.add(party);
+		joinparties.put(id, party);
 	}
 	
 	
@@ -75,11 +75,11 @@ public class User {
 		return image;
 	}
 	
-	public Vector<Party> getApplyparties() {
+	public HashMap<String, Party> getApplyparties() {
 		return applyparties;
 	}
 	
-	public Vector<Party> getAcceptedparties() {
+	public HashMap<String, Party> getAcceptedparties() {
 		return acceptedparties;
 	}
 	
