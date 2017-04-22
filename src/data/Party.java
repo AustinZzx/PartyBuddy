@@ -1,5 +1,6 @@
 package data;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Party {
@@ -8,7 +9,7 @@ public class Party {
 	private int longitude;
 	private int latitude;
 	private User host;
-	Vector<User> attenders;
+	HashMap<String,User> attenders;
 	
 	public Party(String name, String location,int longitude,int latitude, User host)
 	{
@@ -44,10 +45,35 @@ public class Party {
 		return host;
 	}
 	
-	public Vector<User> getAttenders()
+	
+	public void setName(String name)
 	{
-		return attenders;
+		this.name = name;
 	}
 	
-
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
+	
+	public void setGeoLocation(int longitude, int latitude)
+	{
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+	
+	public boolean hasAttender(String username)
+	{
+		return attenders.containsKey(username);
+	}
+	
+	public void addAttender(User user)
+	{
+		attenders.put(user.getUsername(), user);
+	}
+	
+	public void removeAttender(String username)
+	{
+		attenders.remove(username);
+	}
 }
