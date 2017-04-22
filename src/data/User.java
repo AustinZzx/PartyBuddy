@@ -1,6 +1,5 @@
 package data;
 
-
 import java.util.HashMap;
 
 public class User {
@@ -12,7 +11,6 @@ public class User {
 	private String type;
 	private String description;
 	private String image;
-
 	private HashMap<String, Party> applyparties;
 	private HashMap<String, Party> acceptedparties;
 	private HashMap<String, Party> hostparties;
@@ -32,7 +30,6 @@ public class User {
 		this.age = age;
 	}
 	
-
 	public void applyParty(String id, Party party) {
 		applyparties.put(id, party);
 		//needs more
@@ -53,7 +50,6 @@ public class User {
 	}
 	
 	
-
 	public int getAge() {
 		return age;
 	}
@@ -79,7 +75,6 @@ public class User {
 		return image;
 	}
 	
-
 	public HashMap<String, Party> getApplyparties() {
 		return applyparties;
 	}
@@ -88,7 +83,14 @@ public class User {
 		return acceptedparties;
 	}
 	
-
+	public HashMap<String, Party> getHostparties() {
+		return hostparties;
+	}
+	
+	public HashMap<String, Party> getJoinparties() {
+		return joinparties;
+	}
+	
 	public void setAge(int age) {
 		this.age=age;
 	}
