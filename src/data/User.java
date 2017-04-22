@@ -13,6 +13,8 @@ public class User {
 	private String image;
 	private Vector<Party> applyparties;
 	private Vector<Party> acceptedparties;
+	private Vector<Party> hostparties;
+	private Vector<Party> joinparties;
 	
 	public User(int age, String fname, String lname, String username, String gender,
 			String type, String description, String image)
@@ -28,13 +30,25 @@ public class User {
 		this.age = age;
 	}
 	
-	public void requestJoin(Party party) {
+	public void applyParty(Party party) {
 		applyparties.add(party);
+		//needs more
 	}
 	
 	public void getAccepted(Party party) {
 		acceptedparties.add(party);
 	}
+	
+	public void hostParty(Party party)
+	{
+		hostparties.add(party);
+	}
+	
+	public void joinParty(Party party)
+	{
+		joinparties.add(party);
+	}
+	
 	
 	public int getAge() {
 		return age;
