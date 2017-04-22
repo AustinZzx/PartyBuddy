@@ -1,5 +1,8 @@
 package data;
 
+
+import java.util.HashMap;
+
 public class User {
 	private int age;
 	private String fname;
@@ -9,6 +12,11 @@ public class User {
 	private String type;
 	private String description;
 	private String image;
+
+	private HashMap<String, Party> applyparties;
+	private HashMap<String, Party> acceptedparties;
+	private HashMap<String, Party> hostparties;
+	private HashMap<String, Party> joinparties;
 	
 	public User(int age, String fname, String lname, String username, String gender,
 			String type, String description, String image)
@@ -24,6 +32,29 @@ public class User {
 		this.age = age;
 	}
 	
+<<<<<<< HEAD
+=======
+	public void applyParty(String id, Party party) {
+		applyparties.put(id, party);
+		//needs more
+	}
+	
+	public void getAccepted(String id, Party party) {
+		acceptedparties.put(id, party);
+	}
+	
+	public void hostParty(String id, Party party)
+	{
+		hostparties.put(id, party);
+	}
+	
+	public void joinParty(String id, Party party)
+	{
+		joinparties.put(id, party);
+	}
+	
+	
+>>>>>>> a084deeb05652df2c59716bf29b7497777fd558f
 	public int getAge() {
 		return age;
 	}
@@ -49,6 +80,17 @@ public class User {
 		return image;
 	}
 	
+<<<<<<< HEAD
+=======
+	public HashMap<String, Party> getApplyparties() {
+		return applyparties;
+	}
+	
+	public HashMap<String, Party> getAcceptedparties() {
+		return acceptedparties;
+	}
+	
+>>>>>>> a084deeb05652df2c59716bf29b7497777fd558f
 	public void setAge(int age) {
 		this.age=age;
 	}
