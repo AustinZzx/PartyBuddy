@@ -10,7 +10,7 @@ public class Party {
 	private User host;
 	Vector<User> attenders;
 	
-	public Party(String name, String location,int longitude,int latitude, String host)
+	public Party(String name, String location,int longitude,int latitude, User host)
 	{
 		this.name = name;
 		this.location = location;
@@ -48,4 +48,6 @@ public class Party {
 	{
 		return attenders;
 	}
+	
+
 }
