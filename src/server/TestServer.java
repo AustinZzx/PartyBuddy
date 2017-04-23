@@ -36,7 +36,7 @@ public class TestServer {
 			         sb.append((char)ch);
 			    String input = sb.toString();
 			    System.out.println(t.getRequestMethod()+", "+input);
-			    
+			    /*
 	        	String qry;
 	        	InputStream in = t.getRequestBody();
 	        	try {
@@ -50,7 +50,7 @@ public class TestServer {
 	        	} finally {
 	        	    in.close();
 	        	}
-	        	
+	        	*/
 	        	
 	            String response = "From Server";
 	            t.sendResponseHeaders(200, response.length());
