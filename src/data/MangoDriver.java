@@ -1,5 +1,12 @@
 package data;
 
-public class MangoDriver {
+import com.mongodb.Mongo;
 
+public class MangoDriver {
+	public Mongo mango;
+	
+	public MangoDriver()
+	{
+		
+	}
 }
