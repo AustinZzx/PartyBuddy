@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
-import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -55,7 +54,6 @@ public class TestServer {
 			         sb.append((char)ch);
 			    String inputString = sb.toString();
 			    System.out.println(t.getRequestMethod()+", "+inputString);
-			    System.out.print(t.getRequestHeaders());
 			    
 			    JsonElement jelement = new JsonParser().parse(inputString);
 			    JsonObject jobject = jelement.getAsJsonObject();
