@@ -6,28 +6,28 @@ import java.util.Vector;
 public class Party {
 	private String id;
 	private String name;
-	private String location;
+	private String description;
 	private String longitude;
 	private String latitude;
 	private String host;
 	Vector<String> attenders;
 	
-	public Party(String name, String location,String longitude,String latitude, String host, Vector<String> attenders)
+	public Party(String name, String description,String longitude,String latitude, String host, Vector<String> attenders)
 	{
 		id = UUID.randomUUID().toString();
 		this.name = name;
-		this.location = location;
+		this.description = description;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.host = host;
 		this.attenders = attenders;
 	}
 	
-	public Party(String id, String name, String location,String longitude,String latitude, String host, Vector<String> attenders)
+	public Party(String id, String name, String description,String longitude,String latitude, String host, Vector<String> attenders)
 	{
 		this.id = id;
 		this.name = name;
-		this.location = location;
+		this.description = description;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.host = host;
@@ -44,9 +44,9 @@ public class Party {
 		return name;
 	}
 	
-	public String getLocation()
+	public String getDescription()
 	{
-		return location;
+		return description;
 	}
 	
 	public String getLongitude()
@@ -75,12 +75,12 @@ public class Party {
 		this.name = name;
 	}
 	
-	public void setLocation(String location)
+	public void setdescription(String description)
 	{
-		this.location = location;
+		this.description = description;
 	}
 	
-	public void setGeoLocation(String longitude, String latitude)
+	public void setLocation(String longitude, String latitude)
 	{
 		this.longitude = longitude;
 		this.latitude = latitude;

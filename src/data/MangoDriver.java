@@ -78,7 +78,7 @@ public class MangoDriver {
 		BasicDBObject document = new BasicDBObject();
 		document.put("id",p.getId());
 		document.put("name",p.getName());
-		document.put("location",p.getLocation());
+		document.put("description",p.getDescription());
 		document.put("longitude",p.getLongitude());
 		document.put("latitude",p.getLatitude());
 		document.put("host",p.getHost());
@@ -96,7 +96,7 @@ public class MangoDriver {
 		BasicDBObject query = new BasicDBObject("id", partyid);
 		BasicDBObject answer = (BasicDBObject)userCollection.find(query).next();
 		String name = (String)answer.get("name");
-		String location = (String)answer.get("location");
+		String description = (String)answer.get("description");
 		String longitude = (String)answer.get("longitude");
 		String latitude = (String)answer.get("latitude");
 		String host = (String)answer.get("host");
@@ -107,7 +107,7 @@ public class MangoDriver {
 			String temp = (String)attendies.get(i);
 			attenders.add(temp);
 		}
-		Party p = new Party(partyid,name,location,longitude,latitude,host,attenders);
+		Party p = new Party(partyid,name,description,longitude,latitude,host,attenders);
 		return p;
 	}
 	
