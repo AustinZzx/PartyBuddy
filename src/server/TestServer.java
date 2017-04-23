@@ -1,5 +1,6 @@
 package server;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
 
@@ -24,11 +25,18 @@ public class TestServer {
 	 static class MyHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException 
 	        {
-	            String response = "I got your request";
-	            System.out.println("Here");
+	        	InputStream in =t.getRequestBody();
+	        	int ch;
+			     StringBuilder sb = new StringBuilder();
+			     while((ch = in.read()) != -1)
+			         sb.append((char)ch);
+			    System.out.println(sb.toString());
+	        	
+	            String response = "From Server";
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 	            os.write(response.getBytes());
+	            os.flush();
 	            os.close();
 	        }
 	    }

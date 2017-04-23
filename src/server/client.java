@@ -1,9 +1,11 @@
 package server;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -18,6 +20,12 @@ public class client {
 		HttpURLConnection urlConnection = null;
 		try {
 			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setDoOutput(true);
+		    urlConnection.setChunkedStreamingMode(0);
+		    OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+		    out.write("From client".getBytes());
+		    out.flush();
+		    
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
