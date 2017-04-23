@@ -5,18 +5,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.HashMap;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import data.MangoDriver;
 public class TestServer {
 	public static void main (String args[])
 	{
-		 HttpServer server;
+		MangoDriver driver = new MangoDriver();
+		HashMap<String,String> connectedUsers;
+		HttpServer server;
 		try {
 			server = HttpServer.create(new InetSocketAddress(8000), 0);
-			server.createContext("/test", new MyHandler());
-			server.createContext("/refresh",new RefreshHandler());
+			server.createContext("/update", new MyHandler(driver));
+			server.createContext("/refresh",new RefreshHandler(driver));
 	        server.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -25,7 +34,16 @@ public class TestServer {
 	        
 
 	}
+	
+
 	 static class MyHandler implements HttpHandler {
+		 	MangoDriver driver;
+		 	Gson gson;
+		 	public MyHandler(MangoDriver driver)
+		 	{
+		 		this.driver = driver;
+		 		gson = new Gson();
+		 	}
 	        public void handle(HttpExchange t) throws IOException 
 	        {
 	        	System.out.println("Test Mgessage Received");
@@ -35,8 +53,28 @@ public class TestServer {
 			    StringBuilder sb = new StringBuilder();
 			    while((ch = in.read()) != -1)
 			         sb.append((char)ch);
-			    String input = sb.toString();
-			    System.out.println(t.getRequestMethod()+", "+input);
+			    String inputString = sb.toString();
+			    System.out.println(t.getRequestMethod()+", "+inputString);
+			    
+			    JsonElement jelement = new JsonParser().parse(inputString);
+			    JsonObject jobject = jelement.getAsJsonObject();
+			    String action = jobject.get("action").getAsString();
+			    
+			    if(action.toLowerCase().equals("attend"))
+			    {
+			    	String username = jobject.get("username").getAsString();
+			    	String partyID = jobject.get("partyID").getAsString();
+			    	driver.join(username, partyID);
+			    }
+			    
+			    else if(action.toLowerCase().equals("host"))
+			    {
+			    	String hostName = jobject.get("host").getAsString();
+			    	String partyName = jobject.get("partyName").getAsString();
+			    	String description = jobject.get("description").getAsString();
+			    	String longitude = jobject.get("longitude").getAsString();
+			    	String latitude = jobject.get("latitude").getAsString();
+			    }
 			    /*
 	        	String qry;
 	        	InputStream in = t.getRequestBody();
@@ -53,7 +91,7 @@ public class TestServer {
 	        	}
 	        	*/
 	        	
-	            String response = "From Test Server";
+	            String response = "From update Server";
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 	            os.write(response.getBytes());
@@ -62,6 +100,11 @@ public class TestServer {
 	        }
 	    }
 	 static class RefreshHandler implements HttpHandler {
+		 	MangoDriver driver;
+		 	public RefreshHandler(MangoDriver driver)
+		 	{
+		 		this.driver = driver;
+		 	}
 	        public void handle(HttpExchange t) throws IOException 
 	        {
 	        	System.out.println("Refresh Mgessage Received");
