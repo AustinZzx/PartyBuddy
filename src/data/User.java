@@ -1,6 +1,6 @@
 package data;
 
-import java.util.HashMap;
+import java.util.Vector;
 
 public class User {
 	private int age;
@@ -8,45 +8,47 @@ public class User {
 	private String lname;
 	private String username;
 	private String gender;
-	private String type;
+	//private String type;
 	private String description;
 	private String image;
-	private HashMap<String, Party> applyparties;
-	private HashMap<String, Party> acceptedparties;
-	private HashMap<String, Party> hostparties;
-	private HashMap<String, Party> joinparties;
+	//private HashMap<String, Party> applyparties;
+	//private HashMap<String, Party> acceptedparties;
+	private Vector<String> hostparties;
+	private Vector<String> joinparties;
 	
 	public User(int age, String fname, String lname, String username, String gender,
-			String type, String description, String image)
+			String description, String image, Vector<String> hostparties, Vector<String> joinparties)
 	{
 		this.age = age;
 		this.fname = fname;
 		this.lname = lname;
 		this.username = username;
 		this.gender = gender;
-		this.type = type;
+		//this.type = type;
 		this.description = description;
 		this.image = image;
 		this.age = age;
+		this.hostparties = hostparties;
+		this.joinparties = joinparties;
 	}
 	
-	public void applyParty(String id, Party party) {
+	/*public void applyParty(String id, Party party) {
 		applyparties.put(id, party);
 		//needs more
 	}
 	
 	public void getAccepted(String id, Party party) {
 		acceptedparties.put(id, party);
+	}*/
+	
+	public void hostParty(String partyId)
+	{
+		hostparties.add(partyId);
 	}
 	
-	public void hostParty(String id, Party party)
+	public void joinParty(String partyId)
 	{
-		hostparties.put(id, party);
-	}
-	
-	public void joinParty(String id, Party party)
-	{
-		joinparties.put(id, party);
+		joinparties.add(partyId);
 	}
 	
 	
@@ -65,9 +67,6 @@ public class User {
 	public String getGender() {
 		return gender;
 	}
-	public String getType() {
-		return type;
-	}
 	public String getDescription() {
 		return description;
 	}
@@ -75,19 +74,19 @@ public class User {
 		return image;
 	}
 	
-	public HashMap<String, Party> getApplyparties() {
+	/*public HashMap<String, Party> getApplyparties() {
 		return applyparties;
 	}
 	
 	public HashMap<String, Party> getAcceptedparties() {
 		return acceptedparties;
-	}
+	}*/
 	
-	public HashMap<String, Party> getHostparties() {
+	public Vector<String> getHostparties() {
 		return hostparties;
 	}
 	
-	public HashMap<String, Party> getJoinparties() {
+	public Vector<String> getJoinparties() {
 		return joinparties;
 	}
 	
@@ -105,9 +104,6 @@ public class User {
 	}*/
 	public void setGender(String gender) {
 		this.gender=gender;
-	}
-	public void setType(String type) {
-		this.type=type;
 	}
 	public void setDescription(String description) {
 		this.description=description;

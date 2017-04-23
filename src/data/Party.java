@@ -1,6 +1,5 @@
 package data;
 
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.Vector;
 
@@ -10,10 +9,10 @@ public class Party {
 	private String location;
 	private int longitude;
 	private int latitude;
-	private User host;
-	HashMap<String,User> attenders;
+	private String host;
+	Vector<String> attenders;
 	
-	public Party(String name, String location,int longitude,int latitude, User host)
+	public Party(String name, String location,int longitude,int latitude, String host)
 	{
 		id = UUID.randomUUID().toString();
 		this.name = name;
@@ -48,7 +47,7 @@ public class Party {
 		return latitude;
 	}
 	
-	public User getHost()
+	public String getHost()
 	{
 		return host;
 	}
@@ -72,12 +71,12 @@ public class Party {
 	
 	public boolean hasAttender(String username)
 	{
-		return attenders.containsKey(username);
+		return attenders.contains(username);
 	}
 	
 	public void addAttender(User user)
 	{
-		attenders.put(user.getUsername(), user);
+		attenders.add(user.getUsername());
 	}
 	
 	public void removeAttender(String username)
