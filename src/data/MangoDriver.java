@@ -211,5 +211,19 @@ public class MangoDriver {
 		//p.addAttender(u);
 		addParty(p);
 	}
+	
+	public Vector<Party> getAllParties()
+	{
+		Vector<Party> result = new Vector<Party>();
+		while(partyCursor.hasNext())
+		{
+			BasicDBObject obj = (BasicDBObject) partyCursor.next();
+			String temp = (String)obj.get("id");
+			Party p = getParty(temp);
+			result.add(p);
+		}
+		partyCursor = partyCollection.find();
+		return result;
+	}
 
 }
