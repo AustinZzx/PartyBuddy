@@ -13,7 +13,7 @@ import java.net.URL;
 public class client {
 	public static void main(String args[]) throws MalformedURLException
 	{
-		URL url = new URL("http://localhost:8000/test");
+		URL url = new URL("http://localhost:8000/update");
 		HttpURLConnection urlConnection = null;
 		try {
 			urlConnection = (HttpURLConnection) url.openConnection();

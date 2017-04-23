@@ -16,11 +16,11 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import data.MangoDriver;
+import data.Party;
 public class TestServer {
 	public static void main (String args[])
 	{
 		MangoDriver driver = new MangoDriver();
-		HashMap<String,String> connectedUsers;
 		HttpServer server;
 		try {
 			server = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -37,8 +37,8 @@ public class TestServer {
 	
 
 	 static class MyHandler implements HttpHandler {
-		 	MangoDriver driver;
-		 	Gson gson;
+		 	private MangoDriver driver;
+		 	private Gson gson;
 		 	public MyHandler(MangoDriver driver)
 		 	{
 		 		this.driver = driver;
@@ -47,7 +47,7 @@ public class TestServer {
 	        public void handle(HttpExchange t) throws IOException 
 	        {
 	        	System.out.println("Test Mgessage Received");
-
+	        	
 	        	InputStreamReader in = new InputStreamReader(t.getRequestBody(),"utf-8");
 	        	int ch;
 			    StringBuilder sb = new StringBuilder();
@@ -55,26 +55,33 @@ public class TestServer {
 			         sb.append((char)ch);
 			    String inputString = sb.toString();
 			    System.out.println(t.getRequestMethod()+", "+inputString);
+			    System.out.print(t.getRequestHeaders());
 			    
 			    JsonElement jelement = new JsonParser().parse(inputString);
 			    JsonObject jobject = jelement.getAsJsonObject();
 			    String action = jobject.get("action").getAsString();
+			    String username = jobject.get("username").getAsString();
+			    
 			    
 			    if(action.toLowerCase().equals("attend"))
 			    {
-			    	String username = jobject.get("username").getAsString();
 			    	String partyID = jobject.get("partyID").getAsString();
 			    	driver.join(username, partyID);
 			    }
 			    
 			    else if(action.toLowerCase().equals("host"))
 			    {
-			    	String hostName = jobject.get("host").getAsString();
+			    	String partyID  = jobject.get("partyID").getAsString();
 			    	String partyName = jobject.get("partyName").getAsString();
 			    	String description = jobject.get("description").getAsString();
 			    	String longitude = jobject.get("longitude").getAsString();
 			    	String latitude = jobject.get("latitude").getAsString();
+			    	Party party = new Party(partyName,description,longitude,latitude,username);
+			    	driver.addParty(party);
+			    	//TODO 
+			    	//send back party ID ?
 			    }
+			    
 			    /*
 	        	String qry;
 	        	InputStream in = t.getRequestBody();
@@ -94,13 +101,14 @@ public class TestServer {
 	            String response = "From update Server";
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
+
 	            os.write(response.getBytes());
 	            os.flush();
 	            os.close();
 	        }
 	    }
 	 static class RefreshHandler implements HttpHandler {
-		 	MangoDriver driver;
+		 	private MangoDriver driver;
 		 	public RefreshHandler(MangoDriver driver)
 		 	{
 		 		this.driver = driver;
