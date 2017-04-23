@@ -48,7 +48,8 @@ public class MangoDriver {
 	public User getUser(String username)
 	{
 		BasicDBObject query = new BasicDBObject("username", username);
-		BasicDBObject answer = (BasicDBObject)userCollection.find(query).next();
+		DBCursor cursor = userCollection.find(query);
+		BasicDBObject answer = (BasicDBObject)cursor.next();
 		int age = (int)answer.get("age");
 		String fname = (String)answer.get("fname");
 		String lname = (String)answer.get("lname");
@@ -93,8 +94,10 @@ public class MangoDriver {
 	
 	public Party getParty(String partyid)
 	{
+		
 		BasicDBObject query = new BasicDBObject("id", partyid);
-		BasicDBObject answer = (BasicDBObject)userCollection.find(query).next();
+		DBCursor cursor = partyCollection.find(query);
+		BasicDBObject answer = (BasicDBObject)cursor.next();
 		String name = (String)answer.get("name");
 		String description = (String)answer.get("description");
 		String longitude = (String)answer.get("longitude");
@@ -104,6 +107,7 @@ public class MangoDriver {
 		Vector<String> attenders = new Vector<String>();
 		for(int i=0;i<attendies.size();++i)
 		{
+			System.out.println(i);
 			String temp = (String)attendies.get(i);
 			attenders.add(temp);
 		}
@@ -214,15 +218,16 @@ public class MangoDriver {
 	
 	public Vector<Party> getAllParties()
 	{
+		
 		Vector<Party> result = new Vector<Party>();
-		while(partyCursor.hasNext())
+		DBCursor Cursor =  partyCollection.find();
+		while(Cursor.hasNext())
 		{
-			BasicDBObject obj = (BasicDBObject) partyCursor.next();
+			BasicDBObject obj = (BasicDBObject) Cursor.next();
 			String temp = (String)obj.get("id");
 			Party p = getParty(temp);
 			result.add(p);
 		}
-		partyCursor = partyCollection.find();
 		return result;
 	}
 

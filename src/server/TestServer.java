@@ -22,7 +22,7 @@ public class TestServer {
 		MangoDriver driver = new MangoDriver();
 		HttpServer server;
 		try {
-			server = HttpServer.create(new InetSocketAddress(80), 0);
+			server = HttpServer.create(new InetSocketAddress(80), 0);//8000 for not-aws computers
 			server.createContext("/update", new MyHandler(driver));
 			server.createContext("/refresh",new RefreshHandler(driver));
 	        server.start();
@@ -53,16 +53,18 @@ public class TestServer {
 			    while((ch = in.read()) != -1)
 			         sb.append((char)ch);
 			    String inputString = sb.toString();
+			    System.out.println(inputString);
 			    System.out.println(t.getRequestMethod()+", "+inputString);
 			    
 			    JsonElement jelement = new JsonParser().parse(inputString);
 			    JsonObject jobject = jelement.getAsJsonObject();
 			    String action = jobject.get("action").getAsString();
 			    String username = jobject.get("username").getAsString();
-			    String response = "";
-			    
+			    String response = "lalalalalala";
+			    System.out.println("Start Parsing");
 			    if(action.toLowerCase().equals("attend"))
 			    {
+			    	  System.out.println("attend");
 			    	String partyID = jobject.get("partyID").getAsString();
 			    	driver.join(username, partyID);
 			    	response = "You are attending" ;
@@ -70,6 +72,7 @@ public class TestServer {
 			    
 			    else if(action.toLowerCase().equals("host"))
 			    {
+			    	System.out.println("host");
 			    	String partyID  = jobject.get("partyID").getAsString();
 			    	String partyName = jobject.get("partyName").getAsString();
 			    	String description = jobject.get("description").getAsString();
@@ -82,6 +85,7 @@ public class TestServer {
 			    }
 			    
 	            t.sendResponseHeaders(200, response.length());
+	            System.out.println("Here");
 	            OutputStream os = t.getResponseBody();
 
 	            os.write(response.getBytes());
@@ -109,7 +113,6 @@ public class TestServer {
 			    String input = sb.toString();
 			    System.out.println(t.getRequestMethod()+", "+input);
 			    
-	        	
 	            String response = gson.toJson(driver.getAllParties());
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
