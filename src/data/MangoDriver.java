@@ -208,7 +208,7 @@ public class MangoDriver {
 	
 	public void Host(User u, Party p)
 	{
-		p.addAttender(u);
+		//p.addAttender(u);
 		addParty(p);
 	}
 

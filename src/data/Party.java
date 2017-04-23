@@ -12,7 +12,7 @@ public class Party {
 	private String host;
 	Vector<String> attenders;
 	
-	public Party(String name, String description,String longitude,String latitude, String host, Vector<String> attenders)
+	public Party(String name, String description,String longitude,String latitude, String host)
 	{
 		id = UUID.randomUUID().toString();
 		this.name = name;
@@ -20,7 +20,7 @@ public class Party {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.host = host;
-		this.attenders = attenders;
+		this.attenders = new Vector<String>();
 	}
 	
 	public Party(String id, String name, String description,String longitude,String latitude, String host, Vector<String> attenders)
