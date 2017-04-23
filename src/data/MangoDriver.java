@@ -8,6 +8,17 @@ public class MangoDriver {
 	private Mongo mg;
 	private DB db;
 	private DBCollection userCollection, partyCollection;
+	private DBCursor userCursor, partyCursor;
+	
+	public MangoDriver()
+	{
+		mg = new Mongo("localhost", 27017);
+		db = mg.getDB("hackcu");
+		userCollection = db.getCollection("Users");
+		partyCollection = db.getCollection("Party");
+		userCursor = userCollection.find();
+		partyCursor = partyCollection.find();
+	}
 	
 	public void addUser(User u)
 	{
@@ -100,4 +111,36 @@ public class MangoDriver {
 		return p;
 	}
 	
+	public Vector<Party> getUserJoinParty(User u)
+	{
+		Vector<Party> result = new Vector<Party>();
+		Vector<String> joinparties = u.getJoinparties();
+		for(int i=0;i<joinparties.size();++i)
+		{
+			result.add(getParty(joinparties.get(i)));
+		}
+		return result;
+	}
+	
+	public Vector<Party> getUserHostParty(User u)
+	{
+		Vector<Party> result = new Vector<Party>();
+		Vector<String> joinparties = u.getHostparties();
+		for(int i=0;i<joinparties.size();++i)
+		{
+			result.add(getParty(joinparties.get(i)));
+		}
+		return result;
+	}
+	
+	public Vector<User> getPartyAttenders(Party p)
+	{
+		Vector<User> result = new Vector<User>();
+		Vector<String> joinparties = p.getAttenders();
+		for(int i=0;i<joinparties.size();++i)
+		{
+			result.add(getUser(joinparties.get(i)));
+		}
+		return result;
+	}
 }
