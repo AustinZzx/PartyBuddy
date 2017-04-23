@@ -204,4 +204,10 @@ public class MangoDriver {
 		//Update the collection
 		partyCollection.update(userQuery, update1);	
 	}
+	
+	public void Host(User u, Party p)
+	{
+		p.addAttender(u);
+		addParty(p);
+	}
 }
