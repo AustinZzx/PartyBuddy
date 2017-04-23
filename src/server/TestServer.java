@@ -22,7 +22,7 @@ public class TestServer {
 		MangoDriver driver = new MangoDriver();
 		HttpServer server;
 		try {
-			server = HttpServer.create(new InetSocketAddress(8000), 0);
+			server = HttpServer.create(new InetSocketAddress(80), 0);
 			server.createContext("/update", new MyHandler(driver));
 			server.createContext("/refresh",new RefreshHandler(driver));
 	        server.start();
