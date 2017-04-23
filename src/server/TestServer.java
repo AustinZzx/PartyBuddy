@@ -60,11 +60,11 @@ public class TestServer {
 			    JsonObject jobject = jelement.getAsJsonObject();
 			    String action = jobject.get("action").getAsString();
 			    String username = jobject.get("username").getAsString();
-			    String response = "lalalalalala";
+			    String response = "";
 			    System.out.println("Start Parsing");
 			    if(action.toLowerCase().equals("attend"))
 			    {
-			    	  System.out.println("attend");
+			    	 System.out.println("attend");
 			    	String partyID = jobject.get("partyID").getAsString();
 			    	driver.join(username, partyID);
 			    	response = "You are attending" ;
