@@ -1,6 +1,8 @@
 package server;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.*;
 
@@ -25,12 +27,30 @@ public class TestServer {
 	 static class MyHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException 
 	        {
-	        	InputStream in =t.getRequestBody();
+	        	System.out.println("Mgessage Received");
+	        	
+	        	InputStreamReader in = new InputStreamReader(t.getRequestBody(),"utf-8");
 	        	int ch;
-			     StringBuilder sb = new StringBuilder();
-			     while((ch = in.read()) != -1)
+			    StringBuilder sb = new StringBuilder();
+			    while((ch = in.read()) != -1)
 			         sb.append((char)ch);
-			    System.out.println(sb.toString());
+			    String input = sb.toString();
+			    System.out.println(t.getRequestMethod()+", "+input);
+			    
+	        	String qry;
+	        	InputStream in = t.getRequestBody();
+	        	try {
+	        	    ByteArrayOutputStream out = new ByteArrayOutputStream();
+	        	    byte buf[] = new byte[4096];
+	        	    for (int n = in.read(buf); n > 0; n = in.read(buf)) {
+	        	        out.write(buf, 0, n);
+	        	    }
+	        	    qry = new String(out.toByteArray(), "UTF-8");
+	        	    System.out.println(qry);
+	        	} finally {
+	        	    in.close();
+	        	}
+	        	
 	        	
 	            String response = "From Server";
 	            t.sendResponseHeaders(200, response.length());

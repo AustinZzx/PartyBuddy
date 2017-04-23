@@ -20,14 +20,15 @@ public class MangoDriver {
 		document.put("image",u.getImage());
 		BasicDBList hostparties;
 		
-		document.put("hostparties",);
+		//document.put("hostparties",);
 		
 		
 		userCollection.insert(document);
 	}
+	/*
 	public User retrieveUser(String username)
 	{
 		var cursor = db.users.find( { name: 2 } ); 
 		
-	}
+	}*/
 }
