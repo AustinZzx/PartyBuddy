@@ -59,12 +59,13 @@ public class TestServer {
 			    JsonObject jobject = jelement.getAsJsonObject();
 			    String action = jobject.get("action").getAsString();
 			    String username = jobject.get("username").getAsString();
-			    
+			    String response = "";
 			    
 			    if(action.toLowerCase().equals("attend"))
 			    {
 			    	String partyID = jobject.get("partyID").getAsString();
 			    	driver.join(username, partyID);
+			    	response = "You are attending" ;
 			    }
 			    
 			    else if(action.toLowerCase().equals("host"))
@@ -74,29 +75,12 @@ public class TestServer {
 			    	String description = jobject.get("description").getAsString();
 			    	String longitude = jobject.get("longitude").getAsString();
 			    	String latitude = jobject.get("latitude").getAsString();
-			    	Party party = new Party(partyName,description,longitude,latitude,username);
+			    	Party party = new Party(partyID,partyName,description,longitude,latitude,username);
 			    	driver.addParty(party);
 			    	//TODO 
-			    	//send back party ID ?
+			    	response = "New Party added";
 			    }
 			    
-			    /*
-	        	String qry;
-	        	InputStream in = t.getRequestBody();
-	        	try {
-	        	    ByteArrayOutputStream out = new ByteArrayOutputStream();
-	        	    byte buf[] = new byte[4096];
-	        	    for (int n = in.read(buf); n > 0; n = in.read(buf)) {
-	        	        out.write(buf, 0, n);
-	        	    }
-	        	    qry = new String(out.toByteArray(), "UTF-8");
-	        	    System.out.println(qry);
-	        	} finally {
-	        	    in.close();
-	        	}
-	        	*/
-	        	
-	            String response = "From update Server";
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 
@@ -107,9 +91,11 @@ public class TestServer {
 	    }
 	 static class RefreshHandler implements HttpHandler {
 		 	private MangoDriver driver;
+		 	private Gson gson;
 		 	public RefreshHandler(MangoDriver driver)
 		 	{
 		 		this.driver = driver;
+		 		gson = new Gson();
 		 	}
 	        public void handle(HttpExchange t) throws IOException 
 	        {
@@ -122,9 +108,9 @@ public class TestServer {
 			         sb.append((char)ch);
 			    String input = sb.toString();
 			    System.out.println(t.getRequestMethod()+", "+input);
-		
+			    
 	        	
-	            String response = "From Refresh Server";
+	            String response = gson.toJson(driver.getAllParties());
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 	            os.write(response.getBytes());
