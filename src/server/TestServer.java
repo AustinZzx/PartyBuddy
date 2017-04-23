@@ -24,7 +24,7 @@ public class TestServer {
 	 static class MyHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException 
 	        {
-	            String response = "String";
+	            String response = "I got your request";
 	            System.out.println("Here");
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
