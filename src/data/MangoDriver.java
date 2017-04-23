@@ -143,4 +143,65 @@ public class MangoDriver {
 		}
 		return result;
 	}
+	
+	public void join(String username, String partyID)
+	{	
+		////////////////Update PartyCollection///////////////////////////
+		//new party member list
+		BasicDBList newAttenders = new BasicDBList();
+		
+		BasicDBObject query = new BasicDBObject("id", partyID);
+		
+		DBCursor c = partyCollection.find(query);
+		if(c.hasNext())
+		{
+			BasicDBObject obj = (BasicDBObject) c.next();
+			BasicDBList oldAttenders = (BasicDBList) obj.get("attenders");
+			for (Object o : oldAttenders)
+			{
+				newAttenders.add(o);
+			}
+		}
+		
+		BasicDBObject newMember = new BasicDBObject("username", username);
+		newAttenders.add(newMember);
+		
+		
+		BasicDBObject newPartyObj = new BasicDBObject();
+		newPartyObj.put("attenders", newAttenders);
+				
+		BasicDBObject update = new BasicDBObject();
+
+		update.append("$set", newPartyObj);
+		//Update the collection
+		partyCollection.update(query, update);
+		///////////////////////////////////////////////////////
+		
+		////Update userCollection/////////////////////////////
+		BasicDBList newParties = new BasicDBList();
+		
+		BasicDBObject userQuery = new BasicDBObject("username", username);
+		
+		DBCursor cc = partyCollection.find(userQuery);
+		if(cc.hasNext())
+		{
+			BasicDBObject obj = (BasicDBObject) cc.next();
+			BasicDBList oldParties = (BasicDBList) obj.get("joinparties");
+			for (Object o : oldParties)
+			{
+				newParties.add(o);
+			}
+		}
+		BasicDBObject newParty = new BasicDBObject("id", partyID);
+		newParties.add(newParty);	
+		
+		BasicDBObject newUserObj = new BasicDBObject();
+		newUserObj.put("joinparties", newParties);
+				 
+		BasicDBObject update1 = new BasicDBObject();
+	
+		update1.append("$set", newUserObj);
+		//Update the collection
+		partyCollection.update(userQuery, update1);	
+	}
 }
