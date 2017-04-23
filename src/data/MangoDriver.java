@@ -149,10 +149,6 @@ public class MangoDriver {
 		////////////////Update PartyCollection///////////////////////////
 		//new party member list
 		BasicDBList newAttenders = new BasicDBList();
-		
-
-		//document.put("hostparties",);
-
 		BasicDBObject query = new BasicDBObject("id", partyID);
 
 		
