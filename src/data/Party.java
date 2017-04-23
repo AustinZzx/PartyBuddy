@@ -7,12 +7,12 @@ public class Party {
 	private String id;
 	private String name;
 	private String location;
-	private int longitude;
-	private int latitude;
+	private String longitude;
+	private String latitude;
 	private String host;
 	Vector<String> attenders;
 	
-	public Party(String name, String location,int longitude,int latitude, String host)
+	public Party(String name, String location,String longitude,String latitude, String host, Vector<String> attenders)
 	{
 		id = UUID.randomUUID().toString();
 		this.name = name;
@@ -20,6 +20,18 @@ public class Party {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.host = host;
+		this.attenders = attenders;
+	}
+	
+	public Party(String id, String name, String location,String longitude,String latitude, String host, Vector<String> attenders)
+	{
+		this.id = id;
+		this.name = name;
+		this.location = location;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.host = host;
+		this.attenders = attenders;
 	}
 	
 	public String getId()
@@ -32,17 +44,17 @@ public class Party {
 		return name;
 	}
 	
-	public String location()
+	public String getLocation()
 	{
 		return location;
 	}
 	
-	public int getLongitude()
+	public String getLongitude()
 	{
 		return longitude;
 	}
 	
-	public int getLatitude()
+	public String getLatitude()
 	{
 		return latitude;
 	}
@@ -50,6 +62,11 @@ public class Party {
 	public String getHost()
 	{
 		return host;
+	}
+	
+	public Vector<String> getAttenders()
+	{
+		return attenders;
 	}
 	
 	
@@ -63,7 +80,7 @@ public class Party {
 		this.location = location;
 	}
 	
-	public void setGeoLocation(int longitude, int latitude)
+	public void setGeoLocation(String longitude, String latitude)
 	{
 		this.longitude = longitude;
 		this.latitude = latitude;
