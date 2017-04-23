@@ -16,6 +16,7 @@ public class TestServer {
 		try {
 			server = HttpServer.create(new InetSocketAddress(8000), 0);
 			server.createContext("/test", new MyHandler());
+			server.createContext("/refresh",new RefreshHandler());
 	        server.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -27,8 +28,8 @@ public class TestServer {
 	 static class MyHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException 
 	        {
-	        	System.out.println("Mgessage Received");
-	        	
+	        	System.out.println("Test Mgessage Received");
+
 	        	InputStreamReader in = new InputStreamReader(t.getRequestBody(),"utf-8");
 	        	int ch;
 			    StringBuilder sb = new StringBuilder();
@@ -52,7 +53,29 @@ public class TestServer {
 	        	}
 	        	*/
 	        	
-	            String response = "From Server";
+	            String response = "From Test Server";
+	            t.sendResponseHeaders(200, response.length());
+	            OutputStream os = t.getResponseBody();
+	            os.write(response.getBytes());
+	            os.flush();
+	            os.close();
+	        }
+	    }
+	 static class RefreshHandler implements HttpHandler {
+	        public void handle(HttpExchange t) throws IOException 
+	        {
+	        	System.out.println("Refresh Mgessage Received");
+	        	
+	        	InputStreamReader in = new InputStreamReader(t.getRequestBody(),"utf-8");
+	        	int ch;
+			    StringBuilder sb = new StringBuilder();
+			    while((ch = in.read()) != -1)
+			         sb.append((char)ch);
+			    String input = sb.toString();
+			    System.out.println(t.getRequestMethod()+", "+input);
+		
+	        	
+	            String response = "From Refresh Server";
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 	            os.write(response.getBytes());
